@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from database import SessionLocal, Turbidity, get_vietnam_time
+from database import SessionLocal, Turbidity, TemperatureHumidity, get_vietnam_time
 
 app = Flask(__name__)
 
@@ -15,6 +15,24 @@ def receive_turbidity():
         timestamp=get_vietnam_time()
     )
     session.add(turbine)
+    session.commit()
+    session.close()
+
+    return jsonify({"status": "ok"}), 200
+
+
+@app.route("/api/temperature_humidity", methods=["POST"])
+def receive_temperature_humidity():
+    json_data = request.get_json(force=True)
+
+    session = SessionLocal()
+    temperature_humidity = TemperatureHumidity(
+        device_id=json_data.get("device_id"),
+        temperature=json_data.get("temperature"),
+        humidity=json_data.get("humidity"),
+        timestamp=get_vietnam_time()
+    )
+    session.add(temperature_humidity)
     session.commit()
     session.close()
 

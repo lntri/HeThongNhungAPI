@@ -25,4 +25,13 @@ class Turbidity(Base):
     timestamp = Column(DateTime, default=get_vietnam_time)
 
 
+class TemperatureHumidity(Base):
+    __tablename__ = "temperature_humidity"
+
+    id = Column(Integer, primary_key=True, index=True)
+    device_id = Column(String(50))
+    temperature = Column(Float)
+    humidity = Column(Float)
+    timestamp = Column(DateTime, default=get_vietnam_time)
+
 Base.metadata.create_all(engine)
