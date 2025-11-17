@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
-from database import SessionLocal, Turbidity
-from datetime import datetime
+from database import SessionLocal, Turbidity, get_vietnam_time
 
 app = Flask(__name__)
 
@@ -13,7 +12,7 @@ def receive_turbidity():
         device_id=json_data.get("device_id"),
         raw=json_data.get("turbidity_raw"),
         ntu=json_data.get("turbidity_ntu"),
-        timestamp=datetime.now()
+        timestamp=get_vietnam_time()
     )
     session.add(turbine)
     session.commit()
