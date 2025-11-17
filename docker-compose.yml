@@ -4,7 +4,7 @@ services:
     image: he_thong_nhung_api:prod
     container_name: he_thong_nhung_api
     ports:
-      - "5011:5000"
+      - "5012:5000"
     volumes:
       - .:/app
     networks:
