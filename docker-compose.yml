@@ -1,5 +1,5 @@
 services:
-  flask-app:
+  he_thong_nhung_api:
     build: .
     image: he_thong_nhung_api:prod
     container_name: he_thong_nhung_api
