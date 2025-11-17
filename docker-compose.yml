@@ -4,7 +4,7 @@ services:
     image: he_thong_nhung_api:prod
     container_name: he_thong_nhung_api
     ports:
-      - "5010:5000"
+      - "5011:5000"
     volumes:
       - .:/app
     networks:
@@ -15,4 +15,5 @@ services:
 
 networks:
   flask_network:
+    name: flask_network
     driver: bridge
