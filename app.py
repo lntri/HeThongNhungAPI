@@ -57,21 +57,53 @@ def receive_water():
 
 
 @app.route("/api/turbidity/all")
-def get_all():
+def get_all_turbidity():
     session = SessionLocal()
     rows = session.query(Turbidity).all()
     session.close()
-
     return jsonify([
         {
             "id": r.id,
             "device_id": r.device_id,
             "raw": r.raw,
-            "ntu": r.ntu,
+            # "ntu": r.ntu,
             "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
         }
         for r in rows
     ])
+
+
+@app.route("/api/temperature_humidity/all")
+def get_all_temperature_humidity():
+    session = SessionLocal()
+    rows = session.query(TemperatureHumidity).all()
+    session.close()
+    return jsonify([
+        {
+            "id": r.id,
+            "device_id": r.device_id,
+            "temperature": r.temperature,
+            "humidity": r.humidity,
+            "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        for r in rows
+    ])
+
+@app.route("/api/water/all")
+def get_all_water():
+    session = SessionLocal()
+    rows = session.query(Water).all()
+    session.close()
+    return jsonify([
+        {
+            "id": r.id,
+            "device_id": r.device_id,
+            "value": r.value,
+            "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        for r in rows
+    ])
+
 
 @app.route("/")
 def home():
