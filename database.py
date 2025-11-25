@@ -4,7 +4,8 @@ from datetime import datetime
 import pytz
 
 # engine = create_engine("sqlite:///signal.db")
-engine = create_engine("mysql+pymysql://nhom2:uitstudent@192.168.5.129/SignalAPI")  # Sử dụng pymysql driver
+# engine = create_engine("mysql+pymysql://nhom2:uitstudent@192.168.5.129/SignalAPI")  # Sử dụng pymysql driver
+engine = create_engine("mysql+pymysql://nhom2:uitstudent@mysql.csc.edu.vn/SignalAPI")  # Sử dụng pymysql driver
 Base = declarative_base()
 SessionLocal = sessionmaker(bind=engine)
 
