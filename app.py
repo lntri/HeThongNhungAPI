@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from database import SessionLocal, Turbidity, TemperatureHumidity, Water, get_vietnam_time
+from database import SessionLocal, Turbidity, TemperatureHumidity, Water, PH, get_vietnam_time
 
 app = Flask(__name__)
 
@@ -56,6 +56,23 @@ def receive_water():
     return jsonify({"status": "ok"}), 200
 
 
+@app.route("/api/ph", methods=["POST"])
+def receive_ph():
+    json_data = request.get_json(force=True)
+
+    session = SessionLocal()
+    ph = PH(
+        device_id=json_data.get("device_id"),
+        value=json_data.get("value"),
+        timestamp=get_vietnam_time()
+    )
+    session.add(ph)
+    session.commit()
+    session.close()
+
+    return jsonify({"status": "ok"}), 200
+
+
 @app.route("/api/turbidity/all")
 def get_all_turbidity():
     session = SessionLocal()
@@ -89,10 +106,27 @@ def get_all_temperature_humidity():
         for r in rows
     ])
 
+
 @app.route("/api/water/all")
 def get_all_water():
     session = SessionLocal()
     rows = session.query(Water).all()
+    session.close()
+    return jsonify([
+        {
+            "id": r.id,
+            "device_id": r.device_id,
+            "value": r.value,
+            "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        for r in rows
+    ])
+
+
+@app.route("/api/ph/all")
+def get_all_ph():
+    session = SessionLocal()
+    rows = session.query(PH).all()
     session.close()
     return jsonify([
         {
