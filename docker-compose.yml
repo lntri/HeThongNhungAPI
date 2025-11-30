@@ -15,5 +15,6 @@ services:
 
 networks:
   flask_network:
+    external: true
     name: flask_network
-    driver: bridge
+    # driver: bridge
