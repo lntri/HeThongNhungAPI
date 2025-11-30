@@ -12,7 +12,7 @@ def receive_turbidity():
         device_id=json_data.get("device_id"),
         raw=json_data.get("turbidity_raw"),
         ntu=json_data.get("turbidity_ntu"),
-        timestamp=get_vietnam_time()
+        timestamp=get_vietnam_time(json_data.get("timestamp"))
     )
     session.add(turbine)
     session.commit()
@@ -30,7 +30,7 @@ def receive_temperature_humidity():
         device_id=json_data.get("device_id"),
         temperature=json_data.get("temperature"),
         humidity=json_data.get("humidity"),
-        timestamp=get_vietnam_time()
+        timestamp=get_vietnam_time(json_data.get("timestamp"))
     )
     session.add(temperature_humidity)
     session.commit()
@@ -47,7 +47,7 @@ def receive_water():
     water = Water(
         device_id=json_data.get("device_id"),
         value=json_data.get("value"),
-        timestamp=get_vietnam_time()
+        timestamp=get_vietnam_time(json_data.get("timestamp"))
     )
     session.add(water)
     session.commit()
@@ -64,7 +64,7 @@ def receive_ph():
     ph = PH(
         device_id=json_data.get("device_id"),
         value=json_data.get("value"),
-        timestamp=get_vietnam_time()
+        timestamp=get_vietnam_time(json_data.get("timestamp"))
     )
     session.add(ph)
     session.commit()

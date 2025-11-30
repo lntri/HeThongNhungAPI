@@ -10,10 +10,13 @@ Base = declarative_base()
 SessionLocal = sessionmaker(bind=engine)
 
 
-def get_vietnam_time():
+def get_vietnam_time(current_time=None):
     """Lấy thời gian hiện tại theo timezone Asia/Ho_Chi_Minh"""
-    vietnam_tz = pytz.timezone('Asia/Ho_Chi_Minh')
-    return datetime.now(vietnam_tz)
+    if current_time is None:
+        vietnam_tz = pytz.timezone('Asia/Ho_Chi_Minh')
+        return datetime.now(vietnam_tz)
+    else:
+        return current_time
 
 
 class Turbidity(Base):
