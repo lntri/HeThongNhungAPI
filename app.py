@@ -83,7 +83,7 @@ def get_all_turbidity():
             "id": r.id,
             "device_id": r.device_id,
             "raw": r.raw,
-            # "ntu": r.ntu,
+            "ntu": r.ntu,
             "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
         }
         for r in rows
